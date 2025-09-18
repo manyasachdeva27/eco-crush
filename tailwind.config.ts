@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        'fredoka': ['Fredoka', 'cursive'],
+        'nunito': ['Nunito', 'sans-serif'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -65,6 +69,9 @@ export default {
           organic: "hsl(var(--eco-organic))",
           metal: "hsl(var(--eco-metal))",
           paper: "hsl(var(--eco-paper))",
+          gold: "hsl(var(--eco-gold))",
+          purple: "hsl(var(--eco-purple))",
+          pink: "hsl(var(--eco-pink))",
         },
       },
       borderRadius: {
@@ -126,6 +133,35 @@ export default {
             transform: "scale(1.1)",
             boxShadow: "0 0 0 10px hsl(var(--eco-recycle) / 0)"
           }
+        },
+        "sparkle": {
+          "0%, 100%": {
+            transform: "scale(0) rotate(0deg)",
+            opacity: "0"
+          },
+          "50%": {
+            transform: "scale(1) rotate(180deg)",
+            opacity: "1"
+          }
+        },
+        "float": {
+          "0%, 100%": {
+            transform: "translateY(0px)"
+          },
+          "50%": {
+            transform: "translateY(-10px)"
+          }
+        },
+        "wiggle": {
+          "0%, 100%": {
+            transform: "rotate(0deg)"
+          },
+          "25%": {
+            transform: "rotate(-3deg)"
+          },
+          "75%": {
+            transform: "rotate(3deg)"
+          }
         }
       },
       animation: {
@@ -134,6 +170,9 @@ export default {
         "item-drop": "item-drop 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)",
         "match-explode": "match-explode 0.4s ease-out",
         "power-pulse": "power-pulse 2s infinite",
+        "sparkle": "sparkle 1.5s infinite",
+        "float": "float 3s ease-in-out infinite",
+        "wiggle": "wiggle 0.5s ease-in-out infinite",
       },
     },
   },

@@ -207,12 +207,16 @@ export const EcoCrushGame: React.FC = () => {
     <div className="min-h-screen eco-gradient-sky p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-6">
-          <h1 className="text-6xl font-bold text-primary mb-2">
-            <span className="text-eco-recycle">ECO</span>{' '}
-            <span className="text-eco-compost">CRUSH</span>
+        <div className="text-center mb-8">
+          <h1 className="text-8xl font-fredoka font-bold text-game-title mb-4 animate-float">
+            ECO CRUSH
           </h1>
-          <p className="text-lg text-foreground/80">Match waste items to save the planet!</p>
+          <p className="text-xl font-nunito font-semibold text-foreground opacity-90 mb-2">
+            🌍 Match waste items to save the planet! 🌱
+          </p>
+          <div className="flex justify-center gap-2 text-2xl animate-sparkle">
+            ♻️✨🌿✨♻️
+          </div>
         </div>
 
         {/* Game UI */}
@@ -243,15 +247,27 @@ export const EcoCrushGame: React.FC = () => {
         <RecyclingBins />
 
         {/* Control Buttons */}
-        <div className="flex justify-center gap-4 mt-6">
-          <Button variant="default" size="lg" className="eco-gradient-recycle">
-            PLAY
+        <div className="flex justify-center gap-6 mt-8">
+          <Button 
+            variant="default" 
+            size="lg" 
+            className="eco-gradient-recycle text-white font-nunito font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 animate-power-pulse"
+          >
+            🎮 PLAY
           </Button>
-          <Button variant="secondary" size="lg">
-            OPTIONS
+          <Button 
+            variant="secondary" 
+            size="lg"
+            className="eco-gradient-organic text-white font-nunito font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300"
+          >
+            ⚙️ OPTIONS
           </Button>
-          <Button variant="secondary" size="lg" className="bg-eco-compost hover:bg-eco-compost/80">
-            DAILY CHALLENGE
+          <Button 
+            variant="secondary" 
+            size="lg" 
+            className="eco-gradient-gold text-white font-nunito font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 power-glow"
+          >
+            ⭐ DAILY CHALLENGE
           </Button>
         </div>
       </div>

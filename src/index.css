@@ -2,72 +2,83 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Eco Crush Design System - Environmental Match-3 Game */
+/* Eco Crush Design System - Vibrant Environmental Match-3 Game */
 
 @layer base {
   :root {
-    /* Sky and Nature Theme */
-    --background: 197 100% 85%; /* Sky blue */
-    --foreground: 120 40% 15%; /* Dark forest green */
+    /* Vibrant Sky and Nature Theme */
+    --background: 195 100% 88%; /* Bright sky blue */
+    --foreground: 140 60% 12%; /* Rich forest green */
 
-    /* Game Board */
-    --card: 40 30% 90%; /* Light cream for game cells */
-    --card-foreground: 120 40% 15%;
+    /* Game Board - More colorful */
+    --card: 45 80% 96%; /* Warm cream */
+    --card-foreground: 140 60% 12%;
 
     /* UI Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 120 40% 15%;
+    --popover-foreground: 140 60% 12%;
 
-    /* Primary - Forest Green */
-    --primary: 120 60% 35%;
+    /* Primary - Vibrant Forest Green */
+    --primary: 140 70% 35%;
     --primary-foreground: 0 0% 100%;
 
-    /* Secondary - Earth Brown */
-    --secondary: 25 40% 45%;
+    /* Secondary - Rich Earth Brown */
+    --secondary: 30 65% 45%;
     --secondary-foreground: 0 0% 100%;
 
     /* Muted - Soft Natural */
-    --muted: 45 20% 85%;
-    --muted-foreground: 120 20% 40%;
+    --muted: 50 40% 88%;
+    --muted-foreground: 140 30% 35%;
 
-    /* Accent - Ocean Blue */
-    --accent: 210 80% 50%;
+    /* Accent - Bright Ocean Blue */
+    --accent: 200 85% 55%;
     --accent-foreground: 0 0% 100%;
 
-    /* Destructive - Sunset Orange */
-    --destructive: 15 90% 60%;
+    /* Destructive - Vibrant Orange */
+    --destructive: 25 95% 65%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders */
-    --border: 45 30% 80%;
-    --input: 45 30% 80%;
-    --ring: 120 60% 35%;
+    --border: 50 50% 85%;
+    --input: 50 50% 85%;
+    --ring: 140 70% 35%;
 
-    /* Special Eco Colors */
-    --eco-recycle: 120 80% 40%; /* Recycling green */
-    --eco-compost: 25 70% 35%; /* Compost brown */
-    --eco-plastic: 210 90% 55%; /* Plastic blue */
-    --eco-glass: 120 50% 50%; /* Glass green */
-    --eco-organic: 25 60% 40%; /* Organic brown */
-    --eco-metal: 220 20% 70%; /* Metal silver */
-    --eco-paper: 40 40% 85%; /* Paper beige */
+    /* Vibrant Eco Colors */
+    --eco-recycle: 140 85% 45%; /* Bright recycling green */
+    --eco-compost: 30 80% 40%; /* Rich compost brown */
+    --eco-plastic: 200 95% 60%; /* Vibrant plastic blue */
+    --eco-glass: 160 70% 45%; /* Emerald glass green */
+    --eco-organic: 35 75% 45%; /* Warm organic brown */
+    --eco-metal: 210 25% 65%; /* Silver metal */
+    --eco-paper: 45 60% 80%; /* Warm paper beige */
+    --eco-gold: 45 100% 65%; /* Achievement gold */
+    --eco-purple: 280 65% 60%; /* Power-up purple */
+    --eco-pink: 320 70% 65%; /* Special pink */
 
-    /* Gradients */
-    --gradient-sky: linear-gradient(135deg, hsl(197 100% 85%), hsl(210 80% 75%));
-    --gradient-earth: linear-gradient(135deg, hsl(120 60% 45%), hsl(120 40% 35%));
-    --gradient-recycle: linear-gradient(135deg, hsl(var(--eco-recycle)), hsl(120 80% 30%));
-    --gradient-game-board: linear-gradient(145deg, hsl(40 40% 95%), hsl(40 30% 90%));
+    /* Enhanced Gradients */
+    --gradient-sky: linear-gradient(135deg, hsl(195 100% 88%) 0%, hsl(210 85% 75%) 50%, hsl(230 75% 85%) 100%);
+    --gradient-earth: linear-gradient(135deg, hsl(140 70% 45%) 0%, hsl(140 60% 35%) 100%);
+    --gradient-recycle: linear-gradient(135deg, hsl(140 85% 45%) 0%, hsl(140 75% 35%) 100%);
+    --gradient-game-board: linear-gradient(145deg, hsl(45 90% 97%) 0%, hsl(45 70% 92%) 50%, hsl(45 60% 88%) 100%);
+    --gradient-plastic: linear-gradient(135deg, hsl(200 95% 60%) 0%, hsl(210 85% 50%) 100%);
+    --gradient-organic: linear-gradient(135deg, hsl(35 75% 45%) 0%, hsl(25 70% 40%) 100%);
+    --gradient-glass: linear-gradient(135deg, hsl(160 70% 45%) 0%, hsl(150 65% 40%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45 100% 65%) 0%, hsl(40 90% 55%) 100%);
+    --gradient-rainbow: linear-gradient(135deg, hsl(140 85% 45%) 0%, hsl(200 95% 60%) 25%, hsl(280 65% 60%) 50%, hsl(35 75% 45%) 75%, hsl(45 100% 65%) 100%);
     
-    /* Animations */
+    /* Enhanced Animations */
     --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
-    /* Shadows */
-    --shadow-eco: 0 4px 20px hsl(120 60% 35% / 0.15);
-    --shadow-game: 0 8px 32px hsl(120 40% 20% / 0.1);
-    --shadow-item: 0 2px 8px hsl(0 0% 0% / 0.1);
+    /* Enhanced Shadows */
+    --shadow-eco: 0 8px 32px hsl(140 70% 35% / 0.2);
+    --shadow-game: 0 12px 48px hsl(140 60% 20% / 0.15);
+    --shadow-item: 0 4px 16px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 20px hsl(var(--eco-recycle) / 0.3);
+    --shadow-power: 0 0 30px hsl(var(--eco-gold) / 0.4);
 
-    --radius: 1rem;
+    --radius: 1.2rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -131,20 +142,25 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-nunito;
     background: var(--gradient-sky);
     min-height: 100vh;
+    font-weight: 500;
   }
 }
 
 @layer components {
-  /* Game specific animations */
+  /* Enhanced Game Animations */
   .item-bounce {
     animation: bounce 0.6s var(--transition-bounce);
   }
   
   .item-pop {
     animation: pop 0.4s var(--transition-bounce);
+  }
+  
+  .item-wiggle {
+    animation: wiggle 0.5s ease-in-out infinite;
   }
   
   .match-flash {
@@ -155,6 +171,15 @@
     box-shadow: var(--shadow-game);
   }
   
+  .power-glow {
+    box-shadow: var(--shadow-power);
+  }
+  
+  .item-glow {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Enhanced Gradients */
   .eco-gradient-sky {
     background: var(--gradient-sky);
   }
@@ -169,6 +194,38 @@
   
   .eco-gradient-board {
     background: var(--gradient-game-board);
+  }
+  
+  .eco-gradient-plastic {
+    background: var(--gradient-plastic);
+  }
+  
+  .eco-gradient-organic {
+    background: var(--gradient-organic);
+  }
+  
+  .eco-gradient-glass {
+    background: var(--gradient-glass);
+  }
+  
+  .eco-gradient-gold {
+    background: var(--gradient-gold);
+  }
+  
+  .eco-gradient-rainbow {
+    background: var(--gradient-rainbow);
+  }
+  
+  /* Text Styles */
+  .text-game-title {
+    @apply font-fredoka font-bold text-transparent bg-clip-text;
+    background: var(--gradient-rainbow);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .text-game-score {
+    @apply font-nunito font-black;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
   }
 }
 
@@ -189,22 +246,55 @@
 
 @keyframes pop {
   0% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
   }
   50% {
-    transform: scale(1.2);
+    transform: scale(1.3) rotate(5deg);
   }
   100% {
-    transform: scale(1);
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes wiggle {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
   }
 }
 
 @keyframes flash {
   0%, 100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
     opacity: 0.3;
-    transform: scale(1.05);
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }

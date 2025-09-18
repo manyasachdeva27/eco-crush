@@ -49,21 +49,39 @@ export const GameItem: React.FC<GameItemProps> = ({ item, isSelected = false }) 
   return (
     <div
       className={cn(
-        "w-full h-full flex items-center justify-center text-2xl transition-all duration-200",
-        "hover:scale-110 cursor-pointer",
-        isSelected && "animate-power-pulse scale-110",
+        "w-full h-full flex items-center justify-center text-3xl transition-all duration-300 relative",
+        "hover:scale-125 cursor-pointer",
+        isSelected && "animate-power-pulse scale-125 item-glow",
         item.isMatched && "animate-match-explode"
       )}
     >
+      {/* Background glow effect */}
+      {isSelected && (
+        <div className="absolute inset-0 bg-eco-gold/30 rounded-2xl animate-pulse" />
+      )}
+      
       <span 
         className={cn(
-          "drop-shadow-sm",
+          "drop-shadow-lg relative z-10 font-bold",
           getItemColor(item.type),
-          isSelected && "animate-bounce"
+          isSelected && "animate-wiggle text-4xl",
+          "hover:rotate-12 transition-transform duration-200"
         )}
+        style={{
+          filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))',
+          textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        }}
       >
         {getItemIcon(item.type)}
       </span>
+      
+      {/* Sparkle effects for special items */}
+      {isSelected && (
+        <>
+          <div className="absolute top-1 right-1 text-xs animate-sparkle">✨</div>
+          <div className="absolute bottom-1 left-1 text-xs animate-sparkle" style={{animationDelay: '0.5s'}}>⭐</div>
+        </>
+      )}
     </div>
   );
 };
