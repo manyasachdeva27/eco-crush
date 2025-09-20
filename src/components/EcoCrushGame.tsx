@@ -3,6 +3,7 @@ import { GameBoard } from './GameBoard';
 import { GameUI } from './GameUI';
 import { RecyclingBins } from './RecyclingBins';
 import { PowerUps } from './PowerUps';
+import { GameMap } from './GameMap';
 import { Button } from './ui/button';
 
 export type ItemType = 'plastic' | 'glass' | 'organic' | 'metal' | 'paper' | 'can';
@@ -32,11 +33,27 @@ const BOARD_SIZE = 8;
 const ITEM_TYPES: ItemType[] = ['plastic', 'glass', 'organic', 'metal', 'paper', 'can'];
 
 export const EcoCrushGame: React.FC = () => {
+  const [showMap, setShowMap] = useState(true);
+  const [currentLevel, setCurrentLevel] = useState(1);
+  const [unlockedLevels, setUnlockedLevels] = useState(1);
+  
+  // Score targets for each level
+  const levelScoreTargets = {
+    1: 2500,
+    2: 5000,
+    3: 7500,
+    4: 10000,
+    5: 12500,
+    6: 15000,
+    7: 17500,
+    8: 20000,
+  };
+  
   const [gameState, setGameState] = useState<GameState>({
     board: [],
-    score: 1250,
-    level: 7,
-    moves: 25,
+    score: 0,
+    level: 1,
+    moves: 30,
     maxMoves: 30,
     powerUps: {
       compostBombs: 2,
@@ -46,6 +63,8 @@ export const EcoCrushGame: React.FC = () => {
 
   const [selectedItem, setSelectedItem] = useState<{row: number, col: number} | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [activePowerUp, setActivePowerUp] = useState<null | 'compost' | 'recycle'>(null);
+  const [doublePointsActive, setDoublePointsActive] = useState(false);
 
   // Initialize board
   const initializeBoard = useCallback(() => {
@@ -65,6 +84,44 @@ export const EcoCrushGame: React.FC = () => {
     }
     
     setGameState(prev => ({ ...prev, board: newBoard }));
+  }, []);
+
+  // Fill empty spaces with new items
+  const fillEmptySpaces = useCallback((board: (GameItem | null)[][]) => {
+    const newBoard = board.map(row => [...row]);
+    
+    // Fill empty spaces from top to bottom
+    for (let col = 0; col < BOARD_SIZE; col++) {
+      for (let row = BOARD_SIZE - 1; row >= 0; row--) {
+        if (newBoard[row][col] === null) {
+          // Find the first non-null item above this position
+          let foundItem = null;
+          for (let checkRow = row - 1; checkRow >= 0; checkRow--) {
+            if (newBoard[checkRow][col] !== null) {
+              foundItem = newBoard[checkRow][col];
+              newBoard[checkRow][col] = null;
+              break;
+            }
+          }
+          
+          if (foundItem) {
+            // Move the item down
+            newBoard[row][col] = { ...foundItem, row, col };
+          } else {
+            // Generate new item
+            const type = ITEM_TYPES[Math.floor(Math.random() * ITEM_TYPES.length)];
+            newBoard[row][col] = {
+              id: `${row}-${col}-${Date.now()}`,
+              type,
+              row,
+              col,
+            };
+          }
+        }
+      }
+    }
+    
+    return newBoard;
   }, []);
 
   // Check for matches
@@ -123,6 +180,44 @@ export const EcoCrushGame: React.FC = () => {
   // Handle item selection and swapping
   const handleItemClick = useCallback((row: number, col: number) => {
     if (isAnimating) return;
+
+    // If a power-up target is active, apply it here
+    if (activePowerUp === 'compost') {
+      setActivePowerUp(null);
+      setSelectedItem(null);
+      setGameState(prev => {
+        const updated = prev.board.map(r => r.map(c => (c ? { ...c } : null)));
+        let cleared = 0;
+        for (let r = row - 1; r <= row + 1; r++) {
+          for (let c = col - 1; c <= col + 1; c++) {
+            if (r >= 0 && r < BOARD_SIZE && c >= 0 && c < BOARD_SIZE && updated[r][c]) {
+              updated[r][c] = null;
+              cleared++;
+            }
+          }
+        }
+        const gained = cleared * 100 * (doublePointsActive ? 2 : 1);
+        if (doublePointsActive) setDoublePointsActive(false);
+        
+        // Fill empty spaces with new items
+        const filledBoard = fillEmptySpaces(updated);
+        
+        return {
+          ...prev,
+          board: filledBoard,
+          score: prev.score + gained,
+          moves: prev.moves - 1,
+        };
+      });
+      return;
+    }
+
+    if (activePowerUp === 'recycle') {
+      setActivePowerUp(null);
+      setDoublePointsActive(true);
+      setSelectedItem(null);
+      return;
+    }
     
     if (!selectedItem) {
       setSelectedItem({row, col});
@@ -157,13 +252,17 @@ export const EcoCrushGame: React.FC = () => {
                   updatedBoard[match.row][match.col] = null;
                 });
                 
+                // Fill empty spaces with new items
+                const filledBoard = fillEmptySpaces(updatedBoard);
+                
                 return {
                   ...current,
-                  board: updatedBoard,
-                  score: current.score + matches.length * 100,
+                  board: filledBoard,
+                  score: current.score + matches.length * 100 * (doublePointsActive ? 2 : 1),
                   moves: current.moves - 1,
                 };
               });
+              if (doublePointsActive) setDoublePointsActive(false);
               setIsAnimating(false);
             }, 400);
           }
@@ -174,7 +273,7 @@ export const EcoCrushGame: React.FC = () => {
       
       setSelectedItem(null);
     }
-  }, [selectedItem, isAnimating, checkMatches]);
+  }, [selectedItem, isAnimating, checkMatches, activePowerUp, doublePointsActive]);
 
   // Use power-up
   const usePowerUp = useCallback((type: 'compost' | 'recycle') => {
@@ -186,7 +285,7 @@ export const EcoCrushGame: React.FC = () => {
           compostBombs: prev.powerUps.compostBombs - 1,
         },
       }));
-      // Add compost bomb logic here
+      setActivePowerUp('compost');
     } else if (type === 'recycle' && gameState.powerUps.recyclingBoosts > 0) {
       setGameState(prev => ({
         ...prev,
@@ -195,40 +294,100 @@ export const EcoCrushGame: React.FC = () => {
           recyclingBoosts: prev.powerUps.recyclingBoosts - 1,
         },
       }));
-      // Add recycling boost logic here
+      setActivePowerUp('recycle');
     }
   }, [gameState.powerUps]);
+
+  const handleLevelSelect = useCallback((level: number) => {
+    setCurrentLevel(level);
+    setShowMap(false);
+    setSelectedItem(null);
+    setActivePowerUp(null);
+    setDoublePointsActive(false);
+    setGameState(prev => ({
+      ...prev,
+      score: 0,
+      level: level,
+      moves: 30,
+      maxMoves: 30,
+    }));
+    initializeBoard();
+  }, [initializeBoard]);
+
+  const handleBackToMap = useCallback(() => {
+    setShowMap(true);
+    setSelectedItem(null);
+    setActivePowerUp(null);
+    setDoublePointsActive(false);
+  }, []);
+
+  const handleLevelComplete = useCallback(() => {
+    // Unlock next level
+    if (currentLevel === unlockedLevels) {
+      setUnlockedLevels(prev => Math.min(prev + 1, 8));
+    }
+    // Go back to map after level completion
+    setTimeout(() => {
+      setShowMap(true);
+    }, 2000);
+  }, [currentLevel, unlockedLevels]);
 
   useEffect(() => {
     initializeBoard();
   }, [initializeBoard]);
 
+  // Check for level completion based on score
+  useEffect(() => {
+    const targetScore = levelScoreTargets[currentLevel as keyof typeof levelScoreTargets];
+    if (gameState.score >= targetScore) {
+      // Level completed! Unlock next level and go back to map
+      setTimeout(() => {
+        if (currentLevel === unlockedLevels) {
+          setUnlockedLevels(prev => Math.min(prev + 1, 8));
+        }
+        setShowMap(true);
+      }, 1000);
+    }
+  }, [gameState.score, currentLevel, unlockedLevels, levelScoreTargets]);
+
+  if (showMap) {
+    return (
+      <GameMap 
+        onLevelSelect={handleLevelSelect}
+        currentLevel={currentLevel}
+        unlockedLevels={unlockedLevels}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen eco-gradient-sky p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-8xl font-fredoka font-bold text-game-title mb-4 animate-float">
+        <div className="text-center mb-6">
+          <h1 className="text-4xl mb-2" style={{
+            fontFamily: '"Press Start 2P", monospace',
+            color: '#333',
+            textShadow: '2px 2px 0px #000'
+          }}>
             ECO CRUSH
           </h1>
-          <p className="text-xl font-nunito font-semibold text-foreground opacity-90 mb-2">
-            🌍 Match waste items to save the planet! 🌱
+          <p className="text-lg font-nunito text-foreground opacity-80">
+            Level {currentLevel} - Match waste items to save the planet
           </p>
-          <div className="flex justify-center gap-2 text-2xl animate-sparkle">
-            ♻️✨🌿✨♻️
-          </div>
         </div>
 
-        {/* Game UI */}
-        <GameUI 
-          score={gameState.score}
-          level={gameState.level}
-          moves={gameState.moves}
-          maxMoves={gameState.maxMoves}
-        />
+          {/* Game UI */}
+          <GameUI 
+            score={gameState.score}
+            level={gameState.level}
+            moves={gameState.moves}
+            maxMoves={gameState.maxMoves}
+            targetScore={levelScoreTargets[currentLevel as keyof typeof levelScoreTargets]}
+          />
 
         {/* Game Board */}
-        <div className="relative mb-6">
+        <div className="relative mb-4">
           <GameBoard 
             board={gameState.board}
             onItemClick={handleItemClick}
@@ -243,31 +402,15 @@ export const EcoCrushGame: React.FC = () => {
           onUsePowerUp={usePowerUp}
         />
 
-        {/* Recycling Bins */}
-        <RecyclingBins />
-
         {/* Control Buttons */}
-        <div className="flex justify-center gap-6 mt-8">
+        <div className="flex justify-center gap-4 mt-6">
           <Button 
             variant="default" 
             size="lg" 
-            className="eco-gradient-recycle text-white font-nunito font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 animate-power-pulse"
+            className="eco-gradient-recycle text-white font-nunito font-bold text-lg px-6 py-3 rounded-xl shadow-md hover:scale-105 transition-all duration-300"
+            onClick={handleBackToMap}
           >
-            🎮 PLAY
-          </Button>
-          <Button 
-            variant="secondary" 
-            size="lg"
-            className="eco-gradient-organic text-white font-nunito font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300"
-          >
-            ⚙️ OPTIONS
-          </Button>
-          <Button 
-            variant="secondary" 
-            size="lg" 
-            className="eco-gradient-gold text-white font-nunito font-bold text-lg px-8 py-4 rounded-2xl shadow-lg hover:scale-105 transition-all duration-300 power-glow"
-          >
-            ⭐ DAILY CHALLENGE
+            🗺️ BACK TO MAP
           </Button>
         </div>
       </div>

@@ -1,73 +1,111 @@
-# Welcome to your Lovable project
+# 🌱 Eco Crush - Environmental Match-3 Game
 
-## Project info
+A fun and educational match-3 puzzle game that teaches environmental awareness through waste management and recycling. Match waste items to learn about proper disposal and help save the planet!
 
-**URL**: https://lovable.dev/projects/f1f91b31-e306-437d-acfa-fb85ce624d98
+![Eco Crush Game](https://img.shields.io/badge/Game-Eco%20Crush-green) ![React](https://img.shields.io/badge/React-18.3.1-blue) ![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue) ![Vite](https://img.shields.io/badge/Vite-5.4.19-purple)
 
-## How can I edit this code?
+## 🎮 Game Features
 
-There are several ways of editing your application.
+- **8 Unique Levels** - Progress through different environmental challenges
+- **Score-Based Progression** - Each level has specific score targets to unlock the next
+- **Match-3 Mechanics** - Classic Candy Crush-style gameplay with an eco twist
+- **Power-ups** - Use biodegradable and non-biodegradable waste bins strategically
+- **Educational Content** - Learn about waste management and recycling
+- **Retro Pixel Art Style** - Beautiful pixelated UI with 'Press Start 2P' font
+- **Responsive Design** - Works on desktop and mobile devices
 
-**Use Lovable**
+## 🎯 Level Progression
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f1f91b31-e306-437d-acfa-fb85ce624d98) and start prompting.
+| Level | Name | Target Score | Description |
+|-------|------|--------------|-------------|
+| 1 | Forest Start | 2,500 | Begin your eco journey |
+| 2 | Recycle Basic | 5,000 | Learn the basics |
+| 3 | Ocean Clean | 7,500 | Save the seas |
+| 4 | Garden Growth | 10,000 | Grow green |
+| 5 | Solar Power | 12,500 | Harness the sun |
+| 6 | Plastic Crisis | 15,000 | Fight plastic |
+| 7 | Paper Rescue | 17,500 | Save the trees |
+| 8 | Metal Mania | 20,000 | Metal mastery |
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Quick Start
 
-**Use your preferred IDE**
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/eco-crush-clean-up.git
+   cd eco-crush-clean-up
+   ```
 
-Follow these steps:
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+3. **Start development server**
+   ```bash
+   npm run dev
+   ```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+4. **Open your browser**
+   Navigate to `http://localhost:8080`
 
-# Step 3: Install the necessary dependencies.
-npm i
+### Build for Production
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```bash
+npm run build
 ```
 
-**Edit a file directly in GitHub**
+## 🛠️ Tech Stack
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+- **Frontend**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: Radix UI + shadcn/ui
+- **Fonts**: Press Start 2P (Google Fonts)
+- **Icons**: Lucide React
 
-**Use GitHub Codespaces**
+## 🎮 How to Play
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. **Select a Level** - Choose from the map to start your environmental mission
+2. **Match Items** - Swap adjacent waste items to create matches of 3 or more
+3. **Reach Target Score** - Each level requires a specific score to complete
+4. **Use Power-ups** - Strategic use of biodegradable and non-biodegradable bins
+5. **Progress** - Unlock new levels as you complete each challenge
 
-## What technologies are used for this project?
+## 🌍 Environmental Impact
 
-This project is built with:
+This game promotes environmental awareness by:
+- Teaching proper waste categorization
+- Highlighting the importance of recycling
+- Making environmental education fun and engaging
+- Encouraging sustainable practices through gameplay
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 📱 Responsive Design
 
-## How can I deploy this project?
+- **Desktop**: Full experience with keyboard and mouse support
+- **Mobile**: Touch-friendly interface with optimized layouts
+- **Tablet**: Perfect balance for both touch and desktop features
 
-Simply open [Lovable](https://lovable.dev/projects/f1f91b31-e306-437d-acfa-fb85ce624d98) and click on Share -> Publish.
+## 🤝 Contributing
 
-## Can I connect a custom domain to my Lovable project?
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-Yes, you can!
+## 📄 License
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+This project is open source and available under the [MIT License](LICENSE).
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 🎨 Credits
+
+- **Font**: Press Start 2P by CodeMan38
+- **Icons**: Lucide React
+- **UI Components**: shadcn/ui
+- **Inspiration**: Candy Crush Saga (educational adaptation)
+
+---
+
+**Play Eco Crush and help save the planet, one match at a time! 🌱♻️**

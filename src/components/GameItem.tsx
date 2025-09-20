@@ -10,19 +10,19 @@ interface GameItemProps {
 const getItemIcon = (type: GameItemType['type']) => {
   switch (type) {
     case 'plastic':
-      return '🧴'; // Plastic bottle
+      return '🧃'; // Plastic bottle
     case 'glass':
-      return '🍶'; // Glass bottle
+      return '🍾'; // Glass bottle
     case 'organic':
-      return '🍌'; // Banana/organic waste
+      return '🥦'; // Organic waste
     case 'metal':
-      return '🥤'; // Soda can
+      return '⚙️'; // Metal items
     case 'paper':
-      return '📦'; // Cardboard box
+      return '🍞'; // Paper/cardboard
     case 'can':
-      return '🥫'; // Food can
+      return '🍌'; // Food can
     default:
-      return '♻️';
+      return '🛍️';
   }
 };
 
@@ -62,9 +62,9 @@ export const GameItem: React.FC<GameItemProps> = ({ item, isSelected = false }) 
       
       <span 
         className={cn(
-          "drop-shadow-lg relative z-10 font-bold",
+          "drop-shadow-lg relative z-10 font-bold text-5xl",
           getItemColor(item.type),
-          isSelected && "animate-wiggle text-4xl",
+          isSelected && "animate-wiggle text-6xl",
           "hover:rotate-12 transition-transform duration-200"
         )}
         style={{
@@ -79,7 +79,12 @@ export const GameItem: React.FC<GameItemProps> = ({ item, isSelected = false }) 
       {isSelected && (
         <>
           <div className="absolute top-1 right-1 text-xs animate-sparkle">✨</div>
-          <div className="absolute bottom-1 left-1 text-xs animate-sparkle" style={{animationDelay: '0.5s'}}>⭐</div>
+          <div 
+            className="absolute bottom-1 left-1 text-xs animate-sparkle" 
+            style={{ animationDelay: '0.5s' }}
+          >
+            ⭐
+          </div>
         </>
       )}
     </div>
